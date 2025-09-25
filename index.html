@@ -461,6 +461,35 @@
       item.querySelector('.t-content').textContent = decodeURIComponent(text);
       list.prepend(item);
     }
+
+    // Email fallback - copy to clipboard if mailto doesn't work
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        // Let the browser try mailto first, then provide fallback after a short delay
+        setTimeout(() => {
+          navigator.clipboard.writeText('rebe.lim.ly@gmail.com').then(() => {
+            // Create a temporary notification
+            const notification = document.createElement('div');
+            notification.textContent = 'Email copied to clipboard!';
+            notification.style.cssText = `
+              position: fixed;
+              top: 20px;
+              right: 20px;
+              background: var(--accent);
+              color: white;
+              padding: 12px 20px;
+              border-radius: 6px;
+              z-index: 1000;
+              font-size: 14px;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+          }).catch(() => {
+            alert('Please copy this email: rebe.lim.ly@gmail.com');
+          });
+        }, 1000);
+      });
+    });
   </script>
 </body>
 </html>
