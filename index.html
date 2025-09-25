@@ -77,16 +77,14 @@
       justify-content: space-between;
       gap: 12px;
       min-height: 60px;
-      perspective: 1000px;
     }
     .brand{
       font-weight: 800;
       letter-spacing: -0.02em;
       font-size: 18px;
       display: inline-block;
-      animation: flipY3D 3s linear infinite;
+      animation: flipY 3s linear infinite;
       transform-origin: center;
-      transform-style: preserve-3d;
       transition: animation-play-state 0.3s ease;
     }
     
@@ -94,12 +92,9 @@
       animation-play-state: paused;
     }
     
-    @keyframes flipY3D {
-      0% { transform: rotateY(0deg) translateZ(20px); }
-      25% { transform: rotateY(90deg) translateZ(20px); }
-      50% { transform: rotateY(180deg) translateZ(20px); }
-      75% { transform: rotateY(270deg) translateZ(20px); }
-      100% { transform: rotateY(360deg) translateZ(20px); }
+    @keyframes flipY {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
     }
     .links{
       display: flex;
@@ -112,15 +107,16 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 4px 0;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: color-mix(in srgb, var(--fg) 20%, transparent);
-      transition: color .2s ease, text-decoration-color .2s ease;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 86%, transparent), color-mix(in srgb, var(--card) 96%, transparent));
+      transition: transform .1s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease;
     }
     .chip:hover{
-      color: var(--accent);
-      text-decoration-color: var(--accent);
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      box-shadow: 0 6px 20px -12px var(--ring);
     }
     .focusable:focus-visible{
       outline: 2px solid var(--accent);
