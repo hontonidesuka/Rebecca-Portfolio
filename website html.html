@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    Rebecca — Computer Science Student
+    Layout and feel inspired by dris.one and benarata.me timelines.
+    This is original code. Replace placeholder links/content with your own.
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rebecca — Computer Science Student</title>
+  <meta name="description" content="Rebecca's personal site — Computer Science student. Biography, links, life timeline, and contact." />
+  <meta name="color-scheme" content="light dark" />
+  
+  <!-- Input Mono Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Input+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --fg: #0b0b0b;
+      --muted: #6b7280;
+      --accent: #1e40ff;
+      --card: #f6f7fb;
+      --border: #e5e7eb;
+      --ring: rgba(30,64,255,0.25);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root{
+        --bg: #ffffff;
+        --fg: #3537c5;
+        --muted: #0a0a50;
+        --accent: #E6CFA9;
+        --card: #faebeb;
+        --border: #3b1818;
+        --ring: rgba(122,162,255,0.25);
+      }
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin: 0;
+      font-family: "Input Mono", monospace;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a{ color: var(--fg); text-decoration: none; }
+    a:hover{ color: var(--accent); }
+
+    .sans-font{
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    }
+
+    .wrap{
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 20px clamp(16px, 4vw, 28px);
+    }
+
+    header{
+      position: sticky;
+      top: 0;
+      backdrop-filter: saturate(1.2) blur(8px);
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      border-bottom: 1px solid var(--border);
+      z-index: 20;
+    }
+    .nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 60px;
+    }
+    .brand{
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 18px;
+    }
+    .links{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 18px;
+      align-items: center;
+      font-size: 14px;
+    }
+    .chip{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 86%, transparent), color-mix(in srgb, var(--card) 96%, transparent));
+      transition: transform .1s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      box-shadow: 0 6px 20px -12px var(--ring);
+    }
+    .focusable:focus-visible{
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 6px var(--ring);
+    }
+
+    .hero{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+    @media (min-width: 680px){
+      .hero{ grid-template-columns: 1.2fr .8fr; align-items: end; }
+    }
+    .kicker{
+      font-weight: 700;
+      letter-spacing: .1em;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .title{
+      font-size: clamp(36px, 8vw, 72px);
+      margin: 6px 0 4px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 900;
+    }
+    .subtitle{
+      font-size: clamp(16px, 3.8vw, 22px);
+      color: var(--muted);
+      max-width: 700px;
+    }
+    .stats{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .stat{
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    section{
+      padding: 22px 0;
+      border-top: 1px solid var(--border);
+    }
+    h2{
+      font-size: clamp(18px, 3.6vw, 22px);
+      margin: 0 0 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .list{
+      display: grid;
+      gap: 10px;
+    }
+    .row{
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      font-size: clamp(16px, 3.5vw, 18px);
+    }
+    .row .year{
+      min-width: 58px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .row a{
+      color: var(--fg);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: color-mix(in srgb, var(--fg) 20%, transparent);
+    }
+    .note{ color: var(--muted); }
+
+    /* Accordion */
+    details{
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      padding: 14px 16px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      list-style: none;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .caret{ transition: transform .2s ease; }
+    details[open] .caret{ transform: rotate(90deg); }
+
+    /* Timeline (Ben-style) */
+    .timeline{
+      position: relative;
+      display: grid;
+      gap: 14px;
+    }
+    .t-item{
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .t-item:last-child{ border-bottom: 0; }
+    .t-date{
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .t-dot{
+      display: none; /* minimal */
+    }
+    .t-content{
+      font-size: clamp(16px, 3.4vw, 18px);
+      line-height: 1.5;
+    }
+    .t-content b{
+      font-weight: 800;
+    }
+    .t-content a{
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: color-mix(in srgb, var(--fg) 20%, transparent);
+    }
+    @media (max-width: 560px){
+      .t-item{
+        grid-template-columns: 1fr;
+      }
+      .t-date{
+        order: 0;
+      }
+    }
+
+    .footer{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--muted);
+      padding-top: 18px;
+      padding-bottom: 28px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">REBECCA</div>
+      <nav class="links">
+        <a class="chip focusable" href="#contact">Contact</a>
+        <a class="chip focusable" href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="chip focusable" href="https://github.com/your-github" target="_blank" rel="noopener">GitHub</a>
+        <a class="chip focusable" href="#timeline">Timeline</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="kicker">Hi there, I'm</div>
+        <h1 class="title">Rebecca.</h1>
+        <div class="subtitle sans-font">
+          <div class="row">I'm a third year Computer Science student at Monash University who likes turning simple ideas into useful software.</div>
+          <div class="row">I learn by building various projects — like simple tools and games — and I'd like to share what I make.</div>
+        </div>
+        <div class="stats">
+          <div class="stat">Based in: Melbourne & Singapore</div>
+          <div class="stat">Bachelors of Computer Science</div>
+        </div>
+      </div>
+      <div>
+        <div class="list">
+          <a class="chip focusable" href="mailto:rebe.lim.ly@gmail.com">Email me</a>
+          <a class="chip focusable" href="https://github.com/hontonidesuka" target="_blank" rel="noopener">GitHub</a>
+          <a class="chip focusable" href="https://www.linkedin.com/in/rebecca-lim-2736632b8/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="chip focusable" href="#timeline">My Timeline</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="bio">
+      <h2 id="bio">TL;DR</h2>
+      <div class="subtitle sans-font">
+        <div class="row">Started with Scratch in elementary school, and Python in high school.</div>
+        <div class="row">I enjoy the process of creating programs; clean UX, readable code and learning.</div>
+        <div class="row">Current interests: web tooling, and AI-assisted study tools.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="more">
+      <h2 id="more">More about me</h2>
+      <details>
+        <summary>How I started <span class="caret">›</span></summary>
+        <div class="note">I grew up both surrounded and fascinated by technology, I started out making simple games on Scratch with the help of my older brothers, this grew into a yearning to learn more about programming, as life went on, I branched into many different aspects of coding. I learnt HTML(how this website is up and running!), Python and Javascript as well as many other languages. I often find myself venturing into projects after seeing similar ideas online.</div>
+      </details>
+      <details>
+        <summary>My goal <span class="caret">›</span></summary>
+        <div class="note">To learn more about the different aspects and roles in the tech industry, to become an easily communicative person, who can share ideas and collaborate effectively, as well as to build impactful software that makes a difference.</div>
+      </details>
+      <details>
+        <summary>My motivations <span class="caret">›</span></summary>
+        <div class="note">
+            <div class="note">I've always been fortunate to have supportive parents who encouraged my curiosity, and always did their best to provide for me and I never had to worry about finances, instead what drives me is a desire to create and remain curious, like my dad always used to say, "Stay curious."</div>
+            <br>
+            <div class ="note">The idea of being a 'Jack of all trades' has always been appealing to me, but I never resonated with the second part of the quote 'Master of none'. Although being good at everything is nearly impossible to achieve, I would like to at least try to be the very best at the areas I'm passionate about. </div>
+      </details>
+      <details>
+        <summary>Where I see myself in ~1,000 days <span class="caret">›</span></summary>
+        <div class="note">Contributing to impactful softwares, collaborating with diverse teams, and continuously learning.</div>
+      </details>
+    </section>
+
+    <section id="timeline" aria-labelledby="timeline-title">
+      <h2 id="timeline-title">Life Timeline</h2>
+      <div class="timeline" id="timeline-list">
+        <div class="t-item">
+          <div class="t-date">23.07.23</div>
+          <div class="t-content">Enrolled in the Bachelor of Computer Science program at Monash University.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-date">21.05.23</div>
+          <div class="t-content">Joined GitHub and learned the basics.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-date">19.11.21</div>
+          <div class="t-content">Graduated secondary school (High School).</div>
+        </div>
+        <div class="t-item">
+          <div class="t-date">21.07.05</div>
+          <div class="t-content">Born in Singapore.</div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="projects">
+      <h2 id="projects">Some projects I've worked / I'm working on</h2>
+      <div class="list">
+        <div class="row">
+          <span class="year">2025</span>
+          <span><a href="#" target="_blank" rel="noopener">program1</a> — description for program1.</span>
+        </div>
+        <div class="row">
+          <span class="year">2025</span>
+          <span><a href="#" target="_blank" rel="noopener">program2</a> — description for program2.</span>
+        </div>
+    </section>
+
+    <section aria-labelledby="contact" id="contact">
+      <h2 id="contact">Contact</h2>
+      <div class="list">
+        <div class="row">
+          <span class="year">Email</span>
+          <span><a href="mailto:rebecca@example.com">rebe.lim.ly@gmail.com</a></span>
+        </div>
+        <div class="row">
+          <span class="year">LinkedIn</span>
+          <span><a href="https://www.linkedin.com/in/rebecca-lim-2736632b8/" target="_blank" rel="noopener">linkedin.com/in/rebecca-lim-2736632b8/</a></span>
+        </div>
+        <div class="row">
+          <span class="year">GitHub</span>
+          <span><a href="https://github.com/hontonidesuka" target="_blank" rel="noopener">github.com/hontonidesuka</a></span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="directory">
+      <h2 id="directory">Directory</h2>
+      <div class="links">
+        <a class="chip focusable" href="#contact">contact</a>
+        <a class="chip focusable" href="#timeline">timeline</a>
+        <a class="chip focusable" href="#projects">projects</a>
+        <a class="chip focusable" href="#bio">bio</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <div>© <span id="year"></span> Rebecca</div>
+    <div>Built by Rebecca </div>
+  </footer>
+
+  <script>
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          history.pushState(null, '', '#'+id);
+        }
+      });
+    });
+
+    // "Days coding" counter (set your start date)
+    const started = new Date('2022-09-01T00:00:00Z'); // change to your start date
+    const now = new Date();
+    const diffDays = Math.floor((now - started) / (1000*60*60*24));
+    document.getElementById('coding-days').textContent = diffDays.toLocaleString();
+
+    // Optional: quickly add a new timeline item via URL hash params (?date=MM.DD.YY&text=Your%20event)
+    const params = new URLSearchParams(location.search);
+    const date = params.get('date');
+    const text = params.get('text');
+    if(date && text){
+      const list = document.getElementById('timeline-list');
+      const item = document.createElement('div');
+      item.className = 't-item';
+      item.innerHTML = `
+        <div class="t-date"></div>
+        <div class="t-content"></div>
+      `;
+      item.querySelector('.t-date').textContent = date;
+      item.querySelector('.t-content').textContent = decodeURIComponent(text);
+      list.prepend(item);
+    }
+  </script>
+</body>
+</html>
