@@ -309,7 +309,7 @@
       </div>
       <div>
         <div class="list">
-          <a class="chip focusable" href="https://mail.google.com/mail/?view=cm&fs=1&to=rebe.lim.ly@gmail.com" target="_blank" rel="noopener">Email me</a>
+          <a class="chip focusable" href="#" onclick="openEmail(event)">Email me</a>
           <a class="chip focusable" href="https://github.com/hontonidesuka" target="_blank" rel="noopener">GitHub</a>
           <a class="chip focusable" href="https://www.linkedin.com/in/rebecca-lim-2736632b8/" target="_blank" rel="noopener">LinkedIn</a>
           <a class="chip focusable" href="#timeline">My Timeline</a>
@@ -430,6 +430,57 @@
   <script>
     // Dynamic year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Email function - copy to clipboard
+    function openEmail(event) {
+      event.preventDefault();
+      
+      // Copy email to clipboard
+      navigator.clipboard.writeText('rebe.lim.ly@gmail.com').then(() => {
+        // Create a temporary notification
+        const notification = document.createElement('div');
+        notification.textContent = '📋 Email copied to clipboard!';
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: var(--accent);
+          color: white;
+          padding: 12px 20px;
+          border-radius: 8px;
+          z-index: 1000;
+          font-size: 14px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          animation: slideIn 0.3s ease-out;
+        `;
+        document.body.appendChild(notification);
+        
+        // Add slide-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+          }
+        `;
+        document.head.appendChild(style);
+        
+        // Remove notification after 3 seconds
+        setTimeout(() => {
+          notification.style.animation = 'slideIn 0.3s ease-out reverse';
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }).catch(() => {
+        // Fallback for older browsers or if clipboard access fails
+        const textArea = document.createElement('textarea');
+        textArea.value = 'rebe.lim.ly@gmail.com';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('📧 Email copied: rebe.lim.ly@gmail.com');
+      });
+    }
 
     // Smooth scroll for in-page links
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
